@@ -10,12 +10,21 @@ import { CategoryRepository } from '../models/category.repository';
 export class CategoryComponent implements OnInit {
   categories: Category[];
   repository: CategoryRepository;
-
+  selectedCategory: Category = null;
   constructor() {
-      this.repository=new CategoryRepository();
-      this.categories=this.repository.getCategories();
+    this.repository = new CategoryRepository();
+    this.categories = this.repository.getCategories();
+  }
 
-
+  displayAll = true;
+  selectCategory(item?: Category) {
+    if (item) {
+      this.selectedCategory = item;
+      this.displayAll = false;
+    } else {
+      this.selectedCategory = null;
+      this.displayAll = true;
+    }
   }
 
   ngOnInit() {}
