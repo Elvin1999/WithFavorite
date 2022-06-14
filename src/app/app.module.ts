@@ -10,9 +10,11 @@ import { MovieComponent } from './movies/movie/movie.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { FooterComponent } from './footer/footer.component';
 import { MovieFilterPipe } from './pipes/movie-filter.pipe';
+import { AlertifyService } from './services/alertify.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule], // modules
+  imports: [BrowserModule, FormsModule, HttpClientModule], // modules
   declarations: [
     AppComponent,
     NavbarComponent,
@@ -23,6 +25,7 @@ import { MovieFilterPipe } from './pipes/movie-filter.pipe';
     FooterComponent,
     MovieFilterPipe,
   ], //component  providers - services
+  providers: [AlertifyService],
   bootstrap: [AppComponent], //starter component
 })
 export class AppModule {}

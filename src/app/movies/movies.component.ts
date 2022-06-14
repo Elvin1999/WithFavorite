@@ -1,7 +1,9 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../models/movie';
 import { MovieRepository } from '../models/movie.repository';
-
+import { AlertifyService } from '../services/alertify.service';
+// declare let alertify: any;
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
@@ -15,7 +17,10 @@ export class MoviesComponent implements OnInit {
   movieRepository: MovieRepository;
   filterText: string = '';
 
-  constructor() {
+  constructor(
+    private alertifyService: AlertifyService,
+    private http: HttpClient
+  ) {
     this.movieRepository = new MovieRepository();
     this.movies = this.movieRepository.getMovies();
     //this.movies.length=0;
@@ -38,10 +43,14 @@ export class MoviesComponent implements OnInit {
       $event.target.innerText = 'Remove List';
       $event.target.classList.remove('btn-primary');
       $event.target.classList.add('btn-danger');
+      this.alertifyService.success(item.title + ' added to list');
+      let result = this.http.get('https://jsonplaceholder.typicode.com/posts');
+      console.log(result);
     } else {
       $event.target.innerText = 'Add To List';
       $event.target.classList.remove('btn-danger');
       $event.target.classList.add('btn-primary');
+      this.alertifyService.error(item.title + ' removed from list');
     }
   }
 }
